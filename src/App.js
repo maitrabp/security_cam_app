@@ -11,23 +11,33 @@ const App = () => {
   const videoElement = useRef(null);
   const startButtonElement = useRef(null);
   const stopButtonElement = useRef(null);
-
+  const modelRef = useRef(null);
   const shouldRecordRef = useRef(false);
   const isRecordingRef = useRef(false);
 
+  //when the page renders, you wanna do this
   useEffect(() => {
     async function prepare() {
       startButtonElement.current.setAttribute("disabled", true);
       stopButtonElement.current.setAttribute("disabled", true);
+      //If camera detected, then
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        //get the cam, make sure audio and video are enabled
         try {
+          //on iphones it defaults to front camera, to change it google
           const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
             video: true,
           });
+          //put the stream on our window stream
           window.stream = stream;
           videoElement.current.srcObject = stream;
 
+          //TODO LOAD THE MODEL FROM COCO & assign
+          const model = await cocoSSD.load();
+          modelRef.current = model;
+
+          //starts so not disabeld
           startButtonElement.current.removeAttribute("disabled");
         } catch (error) {
           console.error(error);
@@ -38,25 +48,46 @@ const App = () => {
   }, []);
 
   async function detectFrame() {
+    //when should recordref value changes to false, we wanna stop recording (because frame runs recursively)
     if (!shouldRecordRef.current) {
       stopRecording();
       return;
     }
+
+    //Predictions will be of the objects detected within our frame
+    const predictions = await modelRef.current.detect(videoElement.current);
+    let foundperson = false;
+
+    for (i = 0; i < predictions.length; i++) {
+      if (predictions[i].class == "person") {
+        console.log(JSON.stringify(predictions[i]));
+        foundperson = true;
+      }
+    }
+
+    if (foundperson) {
+      startRecording();
+    } else {
+      stopRecording();
+    }
   }
 
   function startRecording() {
+    //If already started recording, then get out of this func
     if (isRecordingRef.current) {
       return;
     }
+    //else start
     isRecordingRef.current = true;
     console.log("start recording");
   }
 
   function stopRecording() {
+    //If already stopped recording, then get out of this func
     if (!isRecordingRef.current) {
       return;
     }
-
+    //else stop
     isRecordingRef.current = false;
     console.log("Stopped recording");
   }
