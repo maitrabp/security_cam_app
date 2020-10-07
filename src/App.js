@@ -12,6 +12,8 @@ const App = () => {
   const startButtonElement = useRef(null);
   const stopButtonElement = useRef(null);
   const modelRef = useRef(null);
+  const lastDetectionRef = useRef([]);
+  const recorderRef = useRef(null);
   const shouldRecordRef = useRef(false);
   const isRecordingRef = useRef(false);
 
@@ -66,10 +68,24 @@ const App = () => {
     }
 
     if (foundperson) {
+      console.log("FOUND PERSON!")
       startRecording();
-    } else {
+      lastDetectionRef.current.push(true);
+    } else if (lastDetectionsRef.current.filter(Boolean).length) { //cont.. recording because there was one true before, maybe we lost couple frame so we do not detect a person.
+      startRecording();
+      lastDetectionRef.current.push(false)
+    }
+    else { //no objs within last ten frames stop recording
       stopRecording();
     }
+
+    //leave ten most recent frames
+    lastDetectionRef.current = lastDetectionRef.current.slice(
+      Math.max(lastDetectionRef.current.length - 10, 0)
+    )
+    requestAnimationFrame(() => {
+      detectFrame();
+    });
   }
 
   function startRecording() {
@@ -80,6 +96,8 @@ const App = () => {
     //else start
     isRecordingRef.current = true;
     console.log("start recording");
+
+    recorderRef.current = new MediaRecorder(window.stream);
   }
 
   function stopRecording() {
@@ -132,15 +150,15 @@ const App = () => {
         {!records.length
           ? null
           : records.map((record) => {
-              return (
-                <div className="card mt-3 w-100" key={record.title}>
-                  <div className="card-body">
-                    <h5 className="card-title">{record.title}</h5>
-                    <video controls src={record.href}></video>
-                  </div>
+            return (
+              <div className="card mt-3 w-100" key={record.title}>
+                <div className="card-body">
+                  <h5 className="card-title">{record.title}</h5>
+                  <video controls src={record.href}></video>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
       </div>
     </div>
   );
