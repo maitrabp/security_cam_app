@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import * as cocoSSD from "@tensorflow-models/coco-ssd";
 import "@tensorflow/tfjs";
-import logo from "./logo.svg";
 import "./App.css";
 
 const App = () => {
@@ -174,4 +173,4 @@ const App = () => {
   );
 };
 export default App;
-ReactDOM.render(<App />, document.getElementById("root"));
+
