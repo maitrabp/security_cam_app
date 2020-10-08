@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/security_cam_app/static/css/main.5f361e03.chunk.css",
-    "main.js": "/security_cam_app/static/js/main.c5fdc8bc.chunk.js",
-    "main.js.map": "/security_cam_app/static/js/main.c5fdc8bc.chunk.js.map",
+    "main.js": "/security_cam_app/static/js/main.f97ad77a.chunk.js",
+    "main.js.map": "/security_cam_app/static/js/main.f97ad77a.chunk.js.map",
     "runtime-main.js": "/security_cam_app/static/js/runtime-main.83f6af32.js",
     "runtime-main.js.map": "/security_cam_app/static/js/runtime-main.83f6af32.js.map",
-    "static/js/2.c121f509.chunk.js": "/security_cam_app/static/js/2.c121f509.chunk.js",
-    "static/js/2.c121f509.chunk.js.map": "/security_cam_app/static/js/2.c121f509.chunk.js.map",
+    "static/js/2.60ab650b.chunk.js": "/security_cam_app/static/js/2.60ab650b.chunk.js",
+    "static/js/2.60ab650b.chunk.js.map": "/security_cam_app/static/js/2.60ab650b.chunk.js.map",
     "index.html": "/security_cam_app/index.html",
-    "precache-manifest.920c815e478d65e8f57eb34f173f4bdd.js": "/security_cam_app/precache-manifest.920c815e478d65e8f57eb34f173f4bdd.js",
+    "precache-manifest.f8bcafe9be529d1cd3a7aa05b3f125e8.js": "/security_cam_app/precache-manifest.f8bcafe9be529d1cd3a7aa05b3f125e8.js",
     "service-worker.js": "/security_cam_app/service-worker.js",
     "static/css/main.5f361e03.chunk.css.map": "/security_cam_app/static/css/main.5f361e03.chunk.css.map",
-    "static/js/2.c121f509.chunk.js.LICENSE.txt": "/security_cam_app/static/js/2.c121f509.chunk.js.LICENSE.txt",
+    "static/js/2.60ab650b.chunk.js.LICENSE.txt": "/security_cam_app/static/js/2.60ab650b.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/security_cam_app/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.83f6af32.js",
-    "static/js/2.c121f509.chunk.js",
+    "static/js/2.60ab650b.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.c5fdc8bc.chunk.js"
+    "static/js/main.f97ad77a.chunk.js"
   ]
 }
