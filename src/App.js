@@ -5,7 +5,7 @@ import "@tensorflow/tfjs";
 import logo from "./logo.svg";
 import "./App.css";
 
-const App = () => {
+export default App = () => {
   const [records, setRecords] = useState([]);
 
   const videoElement = useRef(null);
