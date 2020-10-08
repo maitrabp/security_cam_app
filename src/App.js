@@ -5,7 +5,7 @@ import "@tensorflow/tfjs";
 import logo from "./logo.svg";
 import "./App.css";
 
-export default App = () => {
+const App = () => {
   const [records, setRecords] = useState([]);
 
   const videoElement = useRef(null);
@@ -173,4 +173,5 @@ export default App = () => {
     </div>
   );
 };
+export default App;
 ReactDOM.render(<App />, document.getElementById("root"));
