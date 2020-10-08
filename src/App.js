@@ -60,7 +60,7 @@ const App = () => {
     const predictions = await modelRef.current.detect(videoElement.current);
     let foundperson = false;
 
-    for (i = 0; i < predictions.length; i++) {
+    for (let i = 0; i < predictions.length; i++) {
       if (predictions[i].class == "person") {
         console.log(JSON.stringify(predictions[i]));
         foundperson = true;
@@ -68,10 +68,9 @@ const App = () => {
     }
 
     if (foundperson) {
-      console.log("FOUND PERSON!")
       startRecording();
       lastDetectionRef.current.push(true);
-    } else if (lastDetectionsRef.current.filter(Boolean).length) { //cont.. recording because there was one true before, maybe we lost couple frame so we do not detect a person.
+    } else if (lastDetectionRef.current.filter(Boolean).length) { //cont.. recording because there was one true before, maybe we lost couple frame so we do not detect a person.
       startRecording();
       lastDetectionRef.current.push(false)
     }
@@ -98,7 +97,16 @@ const App = () => {
     console.log("start recording");
 
     recorderRef.current = new MediaRecorder(window.stream);
-  }
+
+    recorderRef.current.ondataavailable = function (e) {
+      const title = new Date() + "";
+      const href = URL.createObjectURL(e.data);
+      setRecords(previousRecords => {
+        return [...previousRecords, { href, title }];
+      });
+    };
+    recorderRef.current.start();
+  };
 
   function stopRecording() {
     //If already stopped recording, then get out of this func
@@ -107,7 +115,9 @@ const App = () => {
     }
     //else stop
     isRecordingRef.current = false;
+    recorderRef.current.stop();
     console.log("Stopped recording");
+    lastDetectionRef.current = []
   }
 
   return (
